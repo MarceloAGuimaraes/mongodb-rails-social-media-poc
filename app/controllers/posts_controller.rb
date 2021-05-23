@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   # GET /lists or /lists.json
   def index
     @posts = Post.all
-    return unless @have_filters
+    return unless have_filters?
 
     filter_date = params[:filters][:date_range]
     filter_networks = params[:filters][:network]
