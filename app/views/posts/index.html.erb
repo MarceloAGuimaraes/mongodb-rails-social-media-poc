@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Post Date</th>
+      <th>Network</th>
+      <th>Link</th>
+      <th>Person</th>
+      <th>List</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <% filtered_lists = @lists.select { |list| list.persons.pluck(:name).include?(post.account.person.name) } %>
+        <td><%= post.post_date %></td>
+        <td><%= post.social_media.name %></td>
+        <td><%= post.link %></td>
+        <td><%= post.account.person.name %></td>
+        <td><%= filtered_lists.pluck(:name) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
