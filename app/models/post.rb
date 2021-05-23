@@ -5,6 +5,8 @@ class Post
     field :link, type: String
     index text: 'text'
 
+    validates_presence_of :text, :post_date, :link
+
     belongs_to :account, optional: true
     belongs_to :social_media, class_name: 'SocialMedia', optional: true
 

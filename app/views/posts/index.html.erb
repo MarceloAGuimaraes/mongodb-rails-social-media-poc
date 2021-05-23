@@ -16,12 +16,13 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <% filtered_lists = @lists.select { |list| list.persons.pluck(:name).include?(post.account.person.name) } %>
+        <% account_person_name = post.try(:account).try(:person).try(:name) %>
+        <% filtered_lists = @lists.select { |list| list.persons.pluck(:name).include?(account_person_name) } %>
         <td><%= post.post_date %></td>
-        <td><%= post.social_media.name %></td>
+        <td><%= post.try(:social_media).try(:name) %></td>
         <td><%= post.link %></td>
-        <td><%= post.account.person.name %></td>
-        <td><%= filtered_lists.pluck(:name) %></td>
+        <td><%= account_person_name %></td>
+        <td><%= filtered_lists&.pluck(:name) %></td>
       </tr>
     <% end %>
   </tbody>
